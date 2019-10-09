@@ -14,3 +14,13 @@ func RawJSONtoMap(raw []byte) (Map, error) {
 	}
 	return prop, nil
 }
+
+func EnsurePropertiesInMap(m Map, properties ...string) (bool, string) {
+	for _, property := range properties {
+		_, ok := m[property]
+		if !ok {
+			return false, property
+		}
+	}
+	return true, ""
+}
