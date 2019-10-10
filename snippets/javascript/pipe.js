@@ -10,9 +10,7 @@
  * const sumTwo = ({ result }) => result + 2
  * pipe(sumPI, sumTwo)(2) // 7.14
  */
-module.exports = pipe;
-
-function pipe (...functions) {
+module.exports = function pipe (...functions) {
     return functions
         .reduce((prevFn, nextFn) => 
             initialValue => 
