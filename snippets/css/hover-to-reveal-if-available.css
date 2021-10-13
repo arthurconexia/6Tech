@@ -1,0 +1,11 @@
+/* If I'm making "hover to reveal" UI interactions, Then I'm not hiding content from a user who viewing without the capability to reveal it.
+ */
+
+/* if device can hover */
+@media (hover: hover) {
+  /* and it's not hovering */
+  foo:not(:hover) {
+    /* safe to hide for a reveal */
+    opacity: 0;
+  }
+}
