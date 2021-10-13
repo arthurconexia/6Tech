@@ -1,0 +1,105 @@
+$screens-map: (
+    phone: 20em, // max-width: 37.5em; margin: 0 auto;
+    tablet: 37.5em,
+    laptop: 68em, // max-width: $app-width?
+    desktop: 85em,
+    tv: 105em
+);
+
+$screen-max-penalty: 0.02em;
+
+$pointers-map: (
+    touchscreen: 'coarse',
+    mouse: 'fine',
+    no-pointer: 'none'
+);
+
+@mixin from($query...) {
+    $media: null;
+
+    @each $args in $query {
+        @if length($args) == 3 {
+            $arg: nth($args, 2);
+
+            @if $arg == 'to' {
+                $from: nth($args, 1);
+
+                @if map-has-key($screens-map, $from) == false {
+                    @error 'invalid argument: #{$from}'
+                }
+
+                $min: map-get($screens-map, nth($args, 1));
+                $to: nth($args, 3);
+
+                @if map-has-key($screens-map, $to) == false {
+                    @error 'invalid argument: #{$to}'
+                }
+
+                $max: map-get($screens-map, nth($args, 3)) - $screen-max-penalty;
+                $q: '(min-width: #{$min}) and (max-width: #{$max})';
+
+                @if $media {
+                    $media: '#{$media} and #{$q}'
+                } @else {
+                    $media: $q;
+                }
+            }
+        } @else {
+            @each $arg in ($args) {
+                $q: map-get($screens-map, $arg);
+
+                @if $q {
+                    $q: '(min-width: #{$q})';
+                } @else {
+                    $q: map-get($pointers-map, $arg);
+
+                    @if $q {
+                        $q: '(pointer: #{$q})';
+                    } @else {
+                        @error 'invalid argument: #{$arg}'
+                    }
+                }
+
+                @if $media {
+                    $media: '#{$media} and #{$q}';
+                } @else {
+                    $media: '#{$q}';
+                }
+            }
+        }
+    }
+
+    @media #{$media} {
+        @content
+    }
+}
+
+@mixin at($args...) {
+    $media: null;
+
+    @each $arg in $args {
+        $q: map-get($screens-map, $arg);
+
+        @if $q {
+            $q: '(min-width: #{$q})';
+        } @else {
+            $q: map-get($pointers-map, $arg);
+
+            @if $q {
+                $q: '(pointer: #{$q})';
+            } @else {
+                @error 'invalid argument: #{$arg}'
+            }
+        }
+
+        @if $media {
+            $media: '#{$media} and #{$q}';
+        } @else {
+            $media: '#{$q}';
+        }
+    }
+
+    @media #{$media} {
+        @content
+    }
+}
