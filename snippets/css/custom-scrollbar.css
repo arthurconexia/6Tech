@@ -1,0 +1,27 @@
+html[dir] .customScrollBar::-webkit-scrollbar-thumb, html[dir] .customScrollBar::-webkit-scrollbar-thumb:hover, html[dir] body::-webkit-scrollbar-thumb, html[dir] body::-webkit-scrollbar-thumb:hover {
+  border-radius: 9px;
+  border: solid 6px transparent;
+  background-clip: content-box;
+
+html[dir] .customScrollBar::-webkit-scrollbar-track, html[dir] body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html[dir] .customScrollBar::-webkit-scrollbar-thumb, html[dir] body::-webkit-scrollbar-thumb {
+  background-color: #c8c6c4;
+}
+
+.customScrollBar, body {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  scrollbar-color: #c8c6c4 transparent;
+  scrollbar-width: thin;
+}
+
+.customScrollBar::-webkit-scrollbar-button, .customScrollBar::-webkit-scrollbar-corner, body::-webkit-scrollbar-button, body::-webkit-scrollbar-corner {
+  cursor: pointer;
+}
+
+.customScrollBar::-webkit-scrollbar, body::-webkit-scrollbar {
+  height: 18px;
+  width: 18px;
+}
